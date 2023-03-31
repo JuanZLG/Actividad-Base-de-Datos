@@ -1,0 +1,92 @@
+
+use("NewEra");
+
+//Los Finds
+// db.productos.find();
+
+// db.productos.findOne({nombre:'Fantastic Wooden Cheese'},{
+//   nombre:1, estado:1
+// })
+
+//Los Update
+
+//Update Many sin Upsert
+
+// db.productos.updateMany({}, {$set: {'nuevoestado': false}})
+
+//Update Many con Upsert
+
+// db.productos.updateMany({precio:{$gt:500}},{$upsert:true}, {$set: {'presentacion':'Noo parcero eso esta muy caro' }})
+
+//Drop Collection
+
+//db.sampled.drop(); //Una cuarta que habiamos creado porque nos da pesar eliminar otra
+
+//Drop Database
+
+//db.dropDatabase(); //Con todo comentareado menos el use y este comando
+
+//$Lookup
+//1
+// db.productos.aggregate( [ 
+//     { $lookup : { 
+//     from: "proveedor", 
+//     localField: "id_proveedores", 
+//     foreignField: "id_productos", 
+//     as: "proveedores" 
+//     } }] )
+//2
+// db.proveedor.aggregate( [ 
+//     { $lookup : { 
+//     from: "productos", 
+//     localField: "id_productos", 
+//     foreignField: "id_proveedores", 
+//     as: "productos" 
+//     } }] )
+
+// //3
+// db.usuarios.aggregate([{$lookup: {from: "productos", localField:"nombre", foreignField:"id", as:"Carrito"}}])
+
+//Los Pipelines
+
+// db.usuarios.aggregate([
+//   {
+//     $match: {
+//       "direccion.departamento": "Georgia"
+//     }
+//   },
+//   {
+//     $group: {
+//       _id: "$direccion.ciudad",
+//       TotalDocumentos: { $sum: 1 }
+//     }
+//   },
+//   {
+//     $sort: { TotalDocumentos: -1 }
+//   }
+// ])
+
+
+// db.usuarios.aggregate([
+//   {
+//     $match: {
+//       "correo": {
+//         $regex: /@gmail\.com$/
+//       }
+//     }
+//   },
+//   {
+//     $group: {
+//       _id: null,
+//       ClientesConEstaDireccion: { $sum: 1 }
+//     }
+//   },
+//   {
+//     $project: {
+//       _id: 0,
+//       Direccion: "@gmail.com",
+//       ClientesConEstaDireccion: 1
+//     }
+//   }
+// ]
+// )
